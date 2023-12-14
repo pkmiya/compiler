@@ -26,7 +26,7 @@ double degree(double rad);
 
 %%
 
-line    :                   { printf("[CALCULATOR]\n"); }
+line    :                   { printf(" "); }
         | line expr '\n'    { printf("> %f\n", $2); }
         | line error '\n'   { yyerrok; }
         ;

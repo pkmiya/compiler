@@ -1230,7 +1230,7 @@ yyreduce:
     {
   case 2: /* line: %empty  */
 #line 29 "report2.y"
-                            { printf("[CALCULATOR]\n"); }
+                            { printf(" "); }
 #line 1235 "y.tab.c"
     break;
 
