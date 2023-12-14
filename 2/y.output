@@ -1,0 +1,1109 @@
+Terminals unused in grammar
+
+    '='
+
+
+Grammar
+
+    0 $accept: line $end
+
+    1 line: ε
+    2     | line expr '\n'
+    3     | line error '\n'
+
+    4 expr: expr '+' expr
+    5     | expr '-' expr
+    6     | expr '*' expr
+    7     | expr '/' expr
+    8     | expr '%' expr
+    9     | expr '^' expr
+   10     | '(' expr ')'
+   11     | '-' expr
+   12     | LOG '(' expr ')'
+   13     | EXP '(' expr ')'
+   14     | SQRT '(' expr ')'
+   15     | MAX '(' expr ',' expr ')'
+   16     | MIN '(' expr ',' expr ')'
+   17     | '(' expr ')' FACT
+   18     | ABS '(' expr ')'
+   19     | DEG '(' expr ')'
+   20     | PI
+   21     | E
+   22     | SIN '(' expr ')'
+   23     | ARCSIN '(' expr ')'
+   24     | INTC
+   25     | DOUBLEC
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '\n' (10) 2 3
+    '%' (37) 8
+    '(' (40) 10 12 13 14 15 16 17 18 19 22 23
+    ')' (41) 10 12 13 14 15 16 17 18 19 22 23
+    '*' (42) 6
+    '+' (43) 4
+    ',' (44) 15 16
+    '-' (45) 5 11
+    '/' (47) 7
+    '=' (61)
+    '^' (94) 9
+    error (256) 3
+    EXP (258) 13
+    LOG (259) 12
+    SQRT (260) 14
+    MAX (261) 15
+    MIN (262) 16
+    FACT (263) 17
+    ABS (264) 18
+    DEG (265) 19
+    PI (266) 20
+    E (267) 21
+    SIN (268) 22
+    ARCSIN (269) 23
+    INTC <val_i> (270) 24
+    DOUBLEC <val_d> (271) 25
+    MINUS (272)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (29)
+        on left: 0
+    line <val_d> (30)
+        on left: 1 2 3
+        on right: 0 2 3
+    expr <val_d> (31)
+        on left: 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+        on right: 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 22 23
+
+
+State 0
+
+    0 $accept: • line $end
+
+    $default  reduce using rule 1 (line)
+
+    line  go to state 1
+
+
+State 1
+
+    0 $accept: line • $end
+    2 line: line • expr '\n'
+    3     | line • error '\n'
+
+    $end     shift, and go to state 2
+    error    shift, and go to state 3
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 19
+
+
+State 2
+
+    0 $accept: line $end •
+
+    $default  accept
+
+
+State 3
+
+    3 line: line error • '\n'
+
+    '\n'  shift, and go to state 20
+
+
+State 4
+
+   13 expr: EXP • '(' expr ')'
+
+    '('  shift, and go to state 21
+
+
+State 5
+
+   12 expr: LOG • '(' expr ')'
+
+    '('  shift, and go to state 22
+
+
+State 6
+
+   14 expr: SQRT • '(' expr ')'
+
+    '('  shift, and go to state 23
+
+
+State 7
+
+   15 expr: MAX • '(' expr ',' expr ')'
+
+    '('  shift, and go to state 24
+
+
+State 8
+
+   16 expr: MIN • '(' expr ',' expr ')'
+
+    '('  shift, and go to state 25
+
+
+State 9
+
+   18 expr: ABS • '(' expr ')'
+
+    '('  shift, and go to state 26
+
+
+State 10
+
+   19 expr: DEG • '(' expr ')'
+
+    '('  shift, and go to state 27
+
+
+State 11
+
+   20 expr: PI •
+
+    $default  reduce using rule 20 (expr)
+
+
+State 12
+
+   21 expr: E •
+
+    $default  reduce using rule 21 (expr)
+
+
+State 13
+
+   22 expr: SIN • '(' expr ')'
+
+    '('  shift, and go to state 28
+
+
+State 14
+
+   23 expr: ARCSIN • '(' expr ')'
+
+    '('  shift, and go to state 29
+
+
+State 15
+
+   24 expr: INTC •
+
+    $default  reduce using rule 24 (expr)
+
+
+State 16
+
+   25 expr: DOUBLEC •
+
+    $default  reduce using rule 25 (expr)
+
+
+State 17
+
+   11 expr: '-' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 30
+
+
+State 18
+
+   10 expr: '(' • expr ')'
+   17     | '(' • expr ')' FACT
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 31
+
+
+State 19
+
+    2 line: line expr • '\n'
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+
+    '+'   shift, and go to state 32
+    '-'   shift, and go to state 33
+    '*'   shift, and go to state 34
+    '/'   shift, and go to state 35
+    '%'   shift, and go to state 36
+    '^'   shift, and go to state 37
+    '\n'  shift, and go to state 38
+
+
+State 20
+
+    3 line: line error '\n' •
+
+    $default  reduce using rule 3 (line)
+
+
+State 21
+
+   13 expr: EXP '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 39
+
+
+State 22
+
+   12 expr: LOG '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 40
+
+
+State 23
+
+   14 expr: SQRT '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 41
+
+
+State 24
+
+   15 expr: MAX '(' • expr ',' expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 42
+
+
+State 25
+
+   16 expr: MIN '(' • expr ',' expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 43
+
+
+State 26
+
+   18 expr: ABS '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 44
+
+
+State 27
+
+   19 expr: DEG '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 45
+
+
+State 28
+
+   22 expr: SIN '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 46
+
+
+State 29
+
+   23 expr: ARCSIN '(' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 47
+
+
+State 30
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   11     | '-' expr •
+
+    $default  reduce using rule 11 (expr)
+
+
+State 31
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   10     | '(' expr • ')'
+   17     | '(' expr • ')' FACT
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 48
+
+
+State 32
+
+    4 expr: expr '+' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 49
+
+
+State 33
+
+    5 expr: expr '-' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 50
+
+
+State 34
+
+    6 expr: expr '*' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 51
+
+
+State 35
+
+    7 expr: expr '/' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 52
+
+
+State 36
+
+    8 expr: expr '%' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 53
+
+
+State 37
+
+    9 expr: expr '^' • expr
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 54
+
+
+State 38
+
+    2 line: line expr '\n' •
+
+    $default  reduce using rule 2 (line)
+
+
+State 39
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   13     | EXP '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 55
+
+
+State 40
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   12     | LOG '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 56
+
+
+State 41
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   14     | SQRT '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 57
+
+
+State 42
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   15     | MAX '(' expr • ',' expr ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ','  shift, and go to state 58
+
+
+State 43
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   16     | MIN '(' expr • ',' expr ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ','  shift, and go to state 59
+
+
+State 44
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   18     | ABS '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 60
+
+
+State 45
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   19     | DEG '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 61
+
+
+State 46
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   22     | SIN '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 62
+
+
+State 47
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   23     | ARCSIN '(' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 63
+
+
+State 48
+
+   10 expr: '(' expr ')' •
+   17     | '(' expr ')' • FACT
+
+    FACT  shift, and go to state 64
+
+    $default  reduce using rule 10 (expr)
+
+
+State 49
+
+    4 expr: expr • '+' expr
+    4     | expr '+' expr •
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+
+    $default  reduce using rule 4 (expr)
+
+
+State 50
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    5     | expr '-' expr •
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+
+    $default  reduce using rule 5 (expr)
+
+
+State 51
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    6     | expr '*' expr •
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+
+    '^'  shift, and go to state 37
+
+    $default  reduce using rule 6 (expr)
+
+
+State 52
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    7     | expr '/' expr •
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+
+    '^'  shift, and go to state 37
+
+    $default  reduce using rule 7 (expr)
+
+
+State 53
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    8     | expr '%' expr •
+    9     | expr • '^' expr
+
+    '^'  shift, and go to state 37
+
+    $default  reduce using rule 8 (expr)
+
+
+State 54
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+    9     | expr '^' expr •
+
+    '^'  shift, and go to state 37
+
+    $default  reduce using rule 9 (expr)
+
+
+State 55
+
+   13 expr: EXP '(' expr ')' •
+
+    $default  reduce using rule 13 (expr)
+
+
+State 56
+
+   12 expr: LOG '(' expr ')' •
+
+    $default  reduce using rule 12 (expr)
+
+
+State 57
+
+   14 expr: SQRT '(' expr ')' •
+
+    $default  reduce using rule 14 (expr)
+
+
+State 58
+
+   15 expr: MAX '(' expr ',' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 65
+
+
+State 59
+
+   16 expr: MIN '(' expr ',' • expr ')'
+
+    EXP      shift, and go to state 4
+    LOG      shift, and go to state 5
+    SQRT     shift, and go to state 6
+    MAX      shift, and go to state 7
+    MIN      shift, and go to state 8
+    ABS      shift, and go to state 9
+    DEG      shift, and go to state 10
+    PI       shift, and go to state 11
+    E        shift, and go to state 12
+    SIN      shift, and go to state 13
+    ARCSIN   shift, and go to state 14
+    INTC     shift, and go to state 15
+    DOUBLEC  shift, and go to state 16
+    '-'      shift, and go to state 17
+    '('      shift, and go to state 18
+
+    expr  go to state 66
+
+
+State 60
+
+   18 expr: ABS '(' expr ')' •
+
+    $default  reduce using rule 18 (expr)
+
+
+State 61
+
+   19 expr: DEG '(' expr ')' •
+
+    $default  reduce using rule 19 (expr)
+
+
+State 62
+
+   22 expr: SIN '(' expr ')' •
+
+    $default  reduce using rule 22 (expr)
+
+
+State 63
+
+   23 expr: ARCSIN '(' expr ')' •
+
+    $default  reduce using rule 23 (expr)
+
+
+State 64
+
+   17 expr: '(' expr ')' FACT •
+
+    $default  reduce using rule 17 (expr)
+
+
+State 65
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   15     | MAX '(' expr ',' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 67
+
+
+State 66
+
+    4 expr: expr • '+' expr
+    5     | expr • '-' expr
+    6     | expr • '*' expr
+    7     | expr • '/' expr
+    8     | expr • '%' expr
+    9     | expr • '^' expr
+   16     | MIN '(' expr ',' expr • ')'
+
+    '+'  shift, and go to state 32
+    '-'  shift, and go to state 33
+    '*'  shift, and go to state 34
+    '/'  shift, and go to state 35
+    '%'  shift, and go to state 36
+    '^'  shift, and go to state 37
+    ')'  shift, and go to state 68
+
+
+State 67
+
+   15 expr: MAX '(' expr ',' expr ')' •
+
+    $default  reduce using rule 15 (expr)
+
+
+State 68
+
+   16 expr: MIN '(' expr ',' expr ')' •
+
+    $default  reduce using rule 16 (expr)
