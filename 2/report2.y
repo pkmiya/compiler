@@ -5,103 +5,73 @@ int yylex(void);
 void yyerror(const char *s);
 int getchar(void);
 
-char usingChar[] = {
-    '0','1','2','3','4','5','6','7','8','9',
-    '+','-','*','/','%','^','r','(',')','\n'
-};
-char QUIT = 'q';
-
-int isUsedChar(int);
-void exit(int);
+double degree(double rad);
 %}
 
-%start line
+%union{
+    int     val_i;
+    double  val_d;
+}
+
+%token EXP LOG SQRT MAX MIN FACT ABS DEG PI E SIN ARCSIN
+%token <val_i> INTC;
+%token <val_d> DOUBLEC;
+%type  <val_d> line expr 
+
+%right '='
+%left '+' '-'
+%left '*' '/' '%'
+%right '^'
+%right MINUS
 
 %%
 
-line    : expr '\n'    { 
-                        printf("> %d\n", $1);
-                        if(yyparse()) exit(1);
-                        }
+line    :                   { printf("[CALCULATOR]\n"); }
+        | line expr '\n'    { printf("> %f\n", $2); }
+        | line error '\n'   { yyerrok; }
         ;
 
-expr    : expr '+' term		{ $$ = $1 + $3; }
-        | expr '-' term		{ $$ = $1 - $3; }
-        | term				{ $$ = $1; }
-        ;
-
-term    : term '*' factor	{ $$ = $1 * $3; }
-        | term '/' factor	{ if($3 == 0) {
-                                printf("error: division by zero\n");
+expr    : expr '+' expr		{ $$ = $1 + $3; }
+        | expr '-' expr		{ $$ = $1 - $3; }
+        | expr '*' expr		{ $$ = $1 * $3; }
+        | expr '/' expr		{ if($3 == 0) {
+                                yyerror("error: zero division");
                                 $$ = 0;
                             } else {
                                 $$ = $1 / $3;
-                            }
-                            }
-        | term '%' factor	{ $$ = $1 % $3; }
-        | term '^' factor	{ $$ = pow($1, $3); }
-
-        | factor		    { $$ = $1; }
-        ;
-
-factor  : '(' expr ')'   	{ $$ = $2; }
-        | '-''(' expr ')'	{ $$ = -$3; }
-        | negative_factor   { $$ = $1; }
-        | positive_factor   { $$ = $1; }
-        | root_factor       { $$ = $1; }
-        ;
-
-negative_factor
-        : '-' positive_factor   { $$ = -$2; }
-        | '-' root_factor       { $$ = -$2; }
-        ;
-
-positive_factor
-        : '0'		        { $$ = 0; }
-        | '1'		        { $$ = 1; }
-        | '2'		        { $$ = 2; }
-        | '3'		        { $$ = 3; }
-        | '4'		        { $$ = 4; }
-        | '5'		        { $$ = 5; }
-        | '6'		        { $$ = 6; }
-        | '7'		        { $$ = 7; }
-        | '8'		        { $$ = 8; }
-        | '9'		        { $$ = 9; }
-        ;
-
-root_factor
-        : 'r' positive_factor { $$ = sqrt($2); }
-        ;
+                            }}
+        | expr '%' expr		        { $$ = fmod($1, $3); }
+        | expr '^' expr		        { $$ = pow($1, $3); }
+        | '(' expr ')'		        { $$ = $2; }
+        | '-' expr %prec MINUS	    { $$ = -$2; }
+        | LOG '(' expr ')'	        { $$ = log($3); }
+        | EXP '(' expr ')'	        { $$ = exp($3); }
+        | SQRT '(' expr ')'	        { $$ = sqrt($3); }
+        | MAX '(' expr ',' expr ')'	{ $$ = fmax($3, $5); }
+        | MIN '(' expr ',' expr ')'	{ $$ = fmin($3, $5); }
+        | '(' expr ')' FACT         { $$ = tgamma($2 + 1); }
+        | ABS '(' expr ')'	        { $$ = fabs($3); }
+        | DEG '(' expr ')'	        { $$ = degree($3); }
+        | PI                        { $$ = M_PI; }
+        | E                         { $$ = M_E; }
+        | SIN '(' expr ')'	        { $$ = sin($3); }
+        | ARCSIN '(' expr ')'	    { $$ = asin($3); }
+        | INTC                      { $$ = (double)$1; }
+        | DOUBLEC                   { $$ = $1; }
 
 %%
 
 #include <ctype.h>
 
-int yylex(){
-    int c;
-
-    while(1){
-        c = getchar();
-
-        /* 空白とタブを読み飛ばす */
-        if(c != ' ' && c != '\t'){
-            if(isUsedChar(c)) break;
-        }
-
-        /* QUIT(q)を入力でプログラム終了 */
-        if(c == QUIT) exit(0);
-
-        /* 予約文字以外の場合，エラーを出力して文字を再読み込み */
-        printf("error: invalid character '%c'\n", c);
-    }
-    return c;
+int main(void){
+    yyparse();
+    return 0;
 }
 
-int isUsedChar(int c){
-    int i;
-    int arraySize = sizeof(usingChar) / sizeof(char);
-    for(i = 0; i < arraySize; i++){
-        if(c == (char)usingChar[i]) return 1;
-    }
-    return 0;
+void yyerror(const char *s){
+    fprintf(stderr, "%s\n", s);
+}
+
+double degree(double rad){
+    return rad * 180 / M_PI;
 }
