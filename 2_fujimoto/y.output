@@ -1,0 +1,570 @@
+Grammar
+
+    0 $accept: line $end
+
+    1 line: ε
+    2     | line expr '\n'
+    3     | line error '\n'
+
+    4 expr: expr '+' term
+    5     | expr '-' term
+    6     | expr '<' term
+    7     | expr '>' term
+    8     | SQRT '(' expr ')'
+    9     | SIN '(' expr ')'
+   10     | ARCSIN '(' expr ')'
+   11     | term
+
+   12 term: term '*' factor
+   13     | term '/' factor
+   14     | term '%' factor
+   15     | term '^' factor
+   16     | factor
+
+   17 factor: '(' expr ')'
+   18       | '-' INTNUM
+   19       | INTNUM
+   20       | '-' DNUM
+   21       | DNUM
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '\n' (10) 2 3
+    '%' (37) 14
+    '(' (40) 8 9 10 17
+    ')' (41) 8 9 10 17
+    '*' (42) 12
+    '+' (43) 4
+    '-' (45) 5 18 20
+    '/' (47) 13
+    '<' (60) 6
+    '>' (62) 7
+    '^' (94) 15
+    error (256) 3
+    SQRT (258) 8
+    SIN (259) 9
+    ARCSIN (260) 10
+    INTNUM <ival> (261) 18 19
+    DNUM <dval> (262) 20 21
+
+
+Nonterminals, with rules where they appear
+
+    $accept (19)
+        on left: 0
+    line (20)
+        on left: 1 2 3
+        on right: 0 2 3
+    expr <dval> (21)
+        on left: 4 5 6 7 8 9 10 11
+        on right: 2 4 5 6 7 8 9 10 17
+    term <dval> (22)
+        on left: 12 13 14 15 16
+        on right: 4 5 6 7 11 12 13 14 15
+    factor <dval> (23)
+        on left: 17 18 19 20 21
+        on right: 12 13 14 15 16
+
+
+State 0
+
+    0 $accept: • line $end
+
+    $default  reduce using rule 1 (line)
+
+    line  go to state 1
+
+
+State 1
+
+    0 $accept: line • $end
+    2 line: line • expr '\n'
+    3     | line • error '\n'
+
+    $end    shift, and go to state 2
+    error   shift, and go to state 3
+    SQRT    shift, and go to state 4
+    SIN     shift, and go to state 5
+    ARCSIN  shift, and go to state 6
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    expr    go to state 11
+    term    go to state 12
+    factor  go to state 13
+
+
+State 2
+
+    0 $accept: line $end •
+
+    $default  accept
+
+
+State 3
+
+    3 line: line error • '\n'
+
+    '\n'  shift, and go to state 14
+
+
+State 4
+
+    8 expr: SQRT • '(' expr ')'
+
+    '('  shift, and go to state 15
+
+
+State 5
+
+    9 expr: SIN • '(' expr ')'
+
+    '('  shift, and go to state 16
+
+
+State 6
+
+   10 expr: ARCSIN • '(' expr ')'
+
+    '('  shift, and go to state 17
+
+
+State 7
+
+   19 factor: INTNUM •
+
+    $default  reduce using rule 19 (factor)
+
+
+State 8
+
+   21 factor: DNUM •
+
+    $default  reduce using rule 21 (factor)
+
+
+State 9
+
+   18 factor: '-' • INTNUM
+   20       | '-' • DNUM
+
+    INTNUM  shift, and go to state 18
+    DNUM    shift, and go to state 19
+
+
+State 10
+
+   17 factor: '(' • expr ')'
+
+    SQRT    shift, and go to state 4
+    SIN     shift, and go to state 5
+    ARCSIN  shift, and go to state 6
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    expr    go to state 20
+    term    go to state 12
+    factor  go to state 13
+
+
+State 11
+
+    2 line: line expr • '\n'
+    4 expr: expr • '+' term
+    5     | expr • '-' term
+    6     | expr • '<' term
+    7     | expr • '>' term
+
+    '\n'  shift, and go to state 21
+    '+'   shift, and go to state 22
+    '-'   shift, and go to state 23
+    '<'   shift, and go to state 24
+    '>'   shift, and go to state 25
+
+
+State 12
+
+   11 expr: term •
+   12 term: term • '*' factor
+   13     | term • '/' factor
+   14     | term • '%' factor
+   15     | term • '^' factor
+
+    '*'  shift, and go to state 26
+    '/'  shift, and go to state 27
+    '%'  shift, and go to state 28
+    '^'  shift, and go to state 29
+
+    $default  reduce using rule 11 (expr)
+
+
+State 13
+
+   16 term: factor •
+
+    $default  reduce using rule 16 (term)
+
+
+State 14
+
+    3 line: line error '\n' •
+
+    $default  reduce using rule 3 (line)
+
+
+State 15
+
+    8 expr: SQRT '(' • expr ')'
+
+    SQRT    shift, and go to state 4
+    SIN     shift, and go to state 5
+    ARCSIN  shift, and go to state 6
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    expr    go to state 30
+    term    go to state 12
+    factor  go to state 13
+
+
+State 16
+
+    9 expr: SIN '(' • expr ')'
+
+    SQRT    shift, and go to state 4
+    SIN     shift, and go to state 5
+    ARCSIN  shift, and go to state 6
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    expr    go to state 31
+    term    go to state 12
+    factor  go to state 13
+
+
+State 17
+
+   10 expr: ARCSIN '(' • expr ')'
+
+    SQRT    shift, and go to state 4
+    SIN     shift, and go to state 5
+    ARCSIN  shift, and go to state 6
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    expr    go to state 32
+    term    go to state 12
+    factor  go to state 13
+
+
+State 18
+
+   18 factor: '-' INTNUM •
+
+    $default  reduce using rule 18 (factor)
+
+
+State 19
+
+   20 factor: '-' DNUM •
+
+    $default  reduce using rule 20 (factor)
+
+
+State 20
+
+    4 expr: expr • '+' term
+    5     | expr • '-' term
+    6     | expr • '<' term
+    7     | expr • '>' term
+   17 factor: '(' expr • ')'
+
+    '+'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '<'  shift, and go to state 24
+    '>'  shift, and go to state 25
+    ')'  shift, and go to state 33
+
+
+State 21
+
+    2 line: line expr '\n' •
+
+    $default  reduce using rule 2 (line)
+
+
+State 22
+
+    4 expr: expr '+' • term
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    term    go to state 34
+    factor  go to state 13
+
+
+State 23
+
+    5 expr: expr '-' • term
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    term    go to state 35
+    factor  go to state 13
+
+
+State 24
+
+    6 expr: expr '<' • term
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    term    go to state 36
+    factor  go to state 13
+
+
+State 25
+
+    7 expr: expr '>' • term
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    term    go to state 37
+    factor  go to state 13
+
+
+State 26
+
+   12 term: term '*' • factor
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    factor  go to state 38
+
+
+State 27
+
+   13 term: term '/' • factor
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    factor  go to state 39
+
+
+State 28
+
+   14 term: term '%' • factor
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    factor  go to state 40
+
+
+State 29
+
+   15 term: term '^' • factor
+
+    INTNUM  shift, and go to state 7
+    DNUM    shift, and go to state 8
+    '-'     shift, and go to state 9
+    '('     shift, and go to state 10
+
+    factor  go to state 41
+
+
+State 30
+
+    4 expr: expr • '+' term
+    5     | expr • '-' term
+    6     | expr • '<' term
+    7     | expr • '>' term
+    8     | SQRT '(' expr • ')'
+
+    '+'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '<'  shift, and go to state 24
+    '>'  shift, and go to state 25
+    ')'  shift, and go to state 42
+
+
+State 31
+
+    4 expr: expr • '+' term
+    5     | expr • '-' term
+    6     | expr • '<' term
+    7     | expr • '>' term
+    9     | SIN '(' expr • ')'
+
+    '+'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '<'  shift, and go to state 24
+    '>'  shift, and go to state 25
+    ')'  shift, and go to state 43
+
+
+State 32
+
+    4 expr: expr • '+' term
+    5     | expr • '-' term
+    6     | expr • '<' term
+    7     | expr • '>' term
+   10     | ARCSIN '(' expr • ')'
+
+    '+'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '<'  shift, and go to state 24
+    '>'  shift, and go to state 25
+    ')'  shift, and go to state 44
+
+
+State 33
+
+   17 factor: '(' expr ')' •
+
+    $default  reduce using rule 17 (factor)
+
+
+State 34
+
+    4 expr: expr '+' term •
+   12 term: term • '*' factor
+   13     | term • '/' factor
+   14     | term • '%' factor
+   15     | term • '^' factor
+
+    '*'  shift, and go to state 26
+    '/'  shift, and go to state 27
+    '%'  shift, and go to state 28
+    '^'  shift, and go to state 29
+
+    $default  reduce using rule 4 (expr)
+
+
+State 35
+
+    5 expr: expr '-' term •
+   12 term: term • '*' factor
+   13     | term • '/' factor
+   14     | term • '%' factor
+   15     | term • '^' factor
+
+    '*'  shift, and go to state 26
+    '/'  shift, and go to state 27
+    '%'  shift, and go to state 28
+    '^'  shift, and go to state 29
+
+    $default  reduce using rule 5 (expr)
+
+
+State 36
+
+    6 expr: expr '<' term •
+   12 term: term • '*' factor
+   13     | term • '/' factor
+   14     | term • '%' factor
+   15     | term • '^' factor
+
+    '*'  shift, and go to state 26
+    '/'  shift, and go to state 27
+    '%'  shift, and go to state 28
+    '^'  shift, and go to state 29
+
+    $default  reduce using rule 6 (expr)
+
+
+State 37
+
+    7 expr: expr '>' term •
+   12 term: term • '*' factor
+   13     | term • '/' factor
+   14     | term • '%' factor
+   15     | term • '^' factor
+
+    '*'  shift, and go to state 26
+    '/'  shift, and go to state 27
+    '%'  shift, and go to state 28
+    '^'  shift, and go to state 29
+
+    $default  reduce using rule 7 (expr)
+
+
+State 38
+
+   12 term: term '*' factor •
+
+    $default  reduce using rule 12 (term)
+
+
+State 39
+
+   13 term: term '/' factor •
+
+    $default  reduce using rule 13 (term)
+
+
+State 40
+
+   14 term: term '%' factor •
+
+    $default  reduce using rule 14 (term)
+
+
+State 41
+
+   15 term: term '^' factor •
+
+    $default  reduce using rule 15 (term)
+
+
+State 42
+
+    8 expr: SQRT '(' expr ')' •
+
+    $default  reduce using rule 8 (expr)
+
+
+State 43
+
+    9 expr: SIN '(' expr ')' •
+
+    $default  reduce using rule 9 (expr)
+
+
+State 44
+
+   10 expr: ARCSIN '(' expr ')' •
+
+    $default  reduce using rule 10 (expr)
