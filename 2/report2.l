@@ -24,11 +24,11 @@ other   .
 "arcsin"	{ return(ARCSIN); }
 
 {digit}+	{
-			  sscanf(yytext, "%d", &yylval.val_i);
+			  sscanf(yytext, "%d", &yylval.ival);
 			  return(INTC);
             }
 {digit}+"."{digit}* { 
-              sscanf(yytext, "%lf", &yylval.val_d);
+              sscanf(yytext, "%lf", &yylval.rval);
               return(DOUBLEC);
 			}
 {other}		{

@@ -9,14 +9,14 @@ double degree(double rad);
 %}
 
 %union{
-    int     val_i;
-    double  val_d;
+    int     ival;
+    double  rval;
 }
 
 %token EXP LOG SQRT MAX MIN FACT ABS DEG PI E SIN ARCSIN
-%token <val_i> INTC;
-%token <val_d> DOUBLEC;
-%type  <val_d> line expr 
+%token <ival> INTC;
+%token <rval> DOUBLEC;
+%type  <rval> line expr 
 
 %right '='
 %left '+' '-'
