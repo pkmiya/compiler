@@ -860,7 +860,7 @@ case 15:
 YY_RULE_SETUP
 #line 26 "report2.l"
 {
-			  sscanf(yytext, "%d", &yylval.val_i);
+			  sscanf(yytext, "%d", &yylval.ival);
 			  return(INTC);
             }
 	YY_BREAK
@@ -868,16 +868,16 @@ case 16:
 YY_RULE_SETUP
 #line 30 "report2.l"
 { 
-              sscanf(yytext, "%lf", &yylval.val_d);
+              sscanf(yytext, "%lf", &yylval.rval);
               return(DOUBLEC);
-            }
+			}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 34 "report2.l"
 {
               fprintf(stderr, "Illegal char '%c' ignored\n", yytext[0]);
-            }
+			}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
