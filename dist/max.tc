@@ -1,0 +1,9 @@
+int a, b;
+
+read a;
+read b;
+
+if(a > b)
+ write a;
+else
+ write b;

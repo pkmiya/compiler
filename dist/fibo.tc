@@ -1,0 +1,16 @@
+int n;
+int f0, f1, f2;
+
+read n;
+
+f0 = 0;
+f1 = 1;
+
+write f0;
+
+while(f1 < n){
+  write f1;
+  f2 = f1 + f0;
+  f0 = f1;
+  f1 = f2;
+}

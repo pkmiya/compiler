@@ -1,0 +1,1828 @@
+State 29 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: decl_list s_list
+
+    2 decl_list: /* empty */
+    3          | decl_list decl ';'
+
+    4 decl: TYPE ID
+    5     | decl ',' ID
+
+    6 s_list: stmnt
+    7       | s_list stmnt
+
+    8 stmnt: lbl_stmnt
+    9      | ';'
+   10      | expr ';'
+   11      | READ LHS ';'
+   12      | WRITE expr ';'
+   13      | '{' s_list '}'
+   14      | if_part
+
+   15 @1: /* empty */
+
+   16 stmnt: if_part ELSE @1 stmnt
+
+   17 @2: /* empty */
+
+   18 @3: /* empty */
+
+   19 stmnt: WHILE @2 '(' expr ')' @3 stmnt
+
+   20 @4: /* empty */
+
+   21 @5: /* empty */
+
+   22 @6: /* empty */
+
+   23 stmnt: DO @4 stmnt @5 WHILE '(' expr ')' @6 ';'
+
+   24 @7: /* empty */
+
+   25 @8: /* empty */
+
+   26 @9: /* empty */
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' @8 opt_expr ')' @9 stmnt
+
+   28 @10: /* empty */
+
+   29 stmnt: SWITCH '(' expr ')' @10 stmnt
+   30      | BREAK ';'
+   31      | CONTI ';'
+   32      | error ';'
+
+   33 @11: /* empty */
+
+   34 lbl_stmnt: CASE NUM ':' @11 stmnt
+
+   35 @12: /* empty */
+
+   36 lbl_stmnt: CASE ADDOP NUM ':' @12 stmnt
+
+   37 @13: /* empty */
+
+   38 lbl_stmnt: DEFAULT ':' @13 stmnt
+
+   39 @14: /* empty */
+
+   40 if_part: IF '(' expr ')' @14 stmnt
+
+   41 opt_expr: /* empty */
+   42         | expr
+
+   43 tst_expr: /* empty */
+   44         | expr
+
+   45 LHS: ID
+
+   46 expr: LHS '=' expr
+
+   47 @15: /* empty */
+
+   48 @16: /* empty */
+
+   49 expr: expr '?' @15 expr ':' @16 expr
+   50     | expr LOR expr
+   51     | expr LAND expr
+   52     | expr RELOP expr
+   53     | expr ADDOP expr
+   54     | expr MULOP expr
+   55     | '(' expr ')'
+   56     | '!' expr
+   57     | ADDOP expr
+   58     | PPMM ID
+   59     | ID PPMM
+   60     | ID
+   61     | NUM
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'!' (33) 56
+'(' (40) 19 23 27 29 40 55
+')' (41) 19 23 27 29 40 55
+',' (44) 5
+':' (58) 34 36 38 49
+';' (59) 3 9 10 11 12 23 27 30 31 32
+'=' (61) 46
+'?' (63) 49
+'{' (123) 13
+'}' (125) 13
+error (256) 32
+TYPE (258) 4
+IF (259) 40
+ELSE (260) 16
+WHILE (261) 19 23
+DO (262) 23
+FOR (263) 27
+SWITCH (264) 29
+CASE (265) 34 36
+DEFAULT (266) 38
+BREAK (267) 30
+CONTI (268) 31
+READ (269) 11
+WRITE (270) 12
+RELOP (271) 52
+ADDOP (272) 36 53 57
+MULOP (273) 54
+PPMM (274) 58 59
+NUM (275) 34 36 61
+ID (276) 4 5 45 58 59 60
+LOR (277) 50
+LAND (278) 51
+UM (279)
+POSOP (280)
+
+
+Nonterminals, with rules where they appear
+
+$accept (36)
+    on left: 0
+program (37)
+    on left: 1, on right: 0
+decl_list (38)
+    on left: 2 3, on right: 1 3
+decl (39)
+    on left: 4 5, on right: 3 5
+s_list (40)
+    on left: 6 7, on right: 1 7 13
+stmnt (41)
+    on left: 8 9 10 11 12 13 14 16 19 23 27 29 30 31 32,
+    on right: 6 7 16 19 23 27 29 34 36 38 40
+@1 (42)
+    on left: 15, on right: 16
+@2 (43)
+    on left: 17, on right: 19
+@3 (44)
+    on left: 18, on right: 19
+@4 (45)
+    on left: 20, on right: 23
+@5 (46)
+    on left: 21, on right: 23
+@6 (47)
+    on left: 22, on right: 23
+@7 (48)
+    on left: 24, on right: 27
+@8 (49)
+    on left: 25, on right: 27
+@9 (50)
+    on left: 26, on right: 27
+@10 (51)
+    on left: 28, on right: 29
+lbl_stmnt (52)
+    on left: 34 36 38, on right: 8
+@11 (53)
+    on left: 33, on right: 34
+@12 (54)
+    on left: 35, on right: 36
+@13 (55)
+    on left: 37, on right: 38
+if_part (56)
+    on left: 40, on right: 14 16
+@14 (57)
+    on left: 39, on right: 40
+opt_expr (58)
+    on left: 41 42, on right: 27
+tst_expr (59)
+    on left: 43 44, on right: 27
+LHS (60)
+    on left: 45, on right: 11 46
+expr (61)
+    on left: 46 49 50 51 52 53 54 55 56 57 58 59 60 61,
+    on right: 10 12 19 23 29 40 42 44 46 49 50 51 52 53 54 55 56 57
+@15 (62)
+    on left: 47, on right: 49
+@16 (63)
+    on left: 48, on right: 49
+
+
+state 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (decl_list)
+
+    program    go to state 1
+    decl_list  go to state 2
+
+
+state 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+state 2
+
+    1 program: decl_list . s_list
+    3 decl_list: decl_list . decl ';'
+
+    error    shift, and go to state 4
+    TYPE     shift, and go to state 5
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    decl       go to state 25
+    s_list     go to state 26
+    stmnt      go to state 27
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 4
+
+   32 stmnt: error . ';'
+
+    ';'  shift, and go to state 32
+
+
+state 5
+
+    4 decl: TYPE . ID
+
+    ID  shift, and go to state 33
+
+
+state 6
+
+   40 if_part: IF . '(' expr ')' @14 stmnt
+
+    '('  shift, and go to state 34
+
+
+state 7
+
+   19 stmnt: WHILE . @2 '(' expr ')' @3 stmnt
+
+    $default  reduce using rule 17 (@2)
+
+    @2  go to state 35
+
+
+state 8
+
+   23 stmnt: DO . @4 stmnt @5 WHILE '(' expr ')' @6 ';'
+
+    $default  reduce using rule 20 (@4)
+
+    @4  go to state 36
+
+
+state 9
+
+   27 stmnt: FOR . '(' opt_expr ';' @7 tst_expr ';' @8 opt_expr ')' @9 stmnt
+
+    '('  shift, and go to state 37
+
+
+state 10
+
+   29 stmnt: SWITCH . '(' expr ')' @10 stmnt
+
+    '('  shift, and go to state 38
+
+
+state 11
+
+   34 lbl_stmnt: CASE . NUM ':' @11 stmnt
+   36          | CASE . ADDOP NUM ':' @12 stmnt
+
+    ADDOP  shift, and go to state 39
+    NUM    shift, and go to state 40
+
+
+state 12
+
+   38 lbl_stmnt: DEFAULT . ':' @13 stmnt
+
+    ':'  shift, and go to state 41
+
+
+state 13
+
+   30 stmnt: BREAK . ';'
+
+    ';'  shift, and go to state 42
+
+
+state 14
+
+   31 stmnt: CONTI . ';'
+
+    ';'  shift, and go to state 43
+
+
+state 15
+
+   11 stmnt: READ . LHS ';'
+
+    ID  shift, and go to state 44
+
+    LHS  go to state 45
+
+
+state 16
+
+   12 stmnt: WRITE . expr ';'
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 46
+
+
+state 17
+
+   57 expr: ADDOP . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 47
+
+
+state 18
+
+   58 expr: PPMM . ID
+
+    ID  shift, and go to state 48
+
+
+state 19
+
+   61 expr: NUM .
+
+    $default  reduce using rule 61 (expr)
+
+
+state 20
+
+   45 LHS: ID .
+   59 expr: ID . PPMM
+   60     | ID .
+
+    PPMM  shift, and go to state 49
+
+    '='       reduce using rule 45 (LHS)
+    $default  reduce using rule 60 (expr)
+
+
+state 21
+
+   56 expr: '!' . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 50
+
+
+state 22
+
+    9 stmnt: ';' .
+
+    $default  reduce using rule 9 (stmnt)
+
+
+state 23
+
+   13 stmnt: '{' . s_list '}'
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    s_list     go to state 51
+    stmnt      go to state 27
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 24
+
+   55 expr: '(' . expr ')'
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 52
+
+
+state 25
+
+    3 decl_list: decl_list decl . ';'
+    5 decl: decl . ',' ID
+
+    ';'  shift, and go to state 53
+    ','  shift, and go to state 54
+
+
+state 26
+
+    1 program: decl_list s_list .
+    7 s_list: s_list . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    $end  reduce using rule 1 (program)
+
+    stmnt      go to state 55
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 27
+
+    6 s_list: stmnt .
+
+    $default  reduce using rule 6 (s_list)
+
+
+state 28
+
+    8 stmnt: lbl_stmnt .
+
+    $default  reduce using rule 8 (stmnt)
+
+
+state 29
+
+   14 stmnt: if_part .
+   16      | if_part . ELSE @1 stmnt
+
+    ELSE  shift, and go to state 56
+
+    ELSE      [reduce using rule 14 (stmnt)]
+    $default  reduce using rule 14 (stmnt)
+
+
+state 30
+
+   46 expr: LHS . '=' expr
+
+    '='  shift, and go to state 57
+
+
+state 31
+
+   10 stmnt: expr . ';'
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ';'    shift, and go to state 64
+
+
+state 32
+
+   32 stmnt: error ';' .
+
+    $default  reduce using rule 32 (stmnt)
+
+
+state 33
+
+    4 decl: TYPE ID .
+
+    $default  reduce using rule 4 (decl)
+
+
+state 34
+
+   40 if_part: IF '(' . expr ')' @14 stmnt
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 65
+
+
+state 35
+
+   19 stmnt: WHILE @2 . '(' expr ')' @3 stmnt
+
+    '('  shift, and go to state 66
+
+
+state 36
+
+   23 stmnt: DO @4 . stmnt @5 WHILE '(' expr ')' @6 ';'
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 67
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 37
+
+   27 stmnt: FOR '(' . opt_expr ';' @7 tst_expr ';' @8 opt_expr ')' @9 stmnt
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    $default  reduce using rule 41 (opt_expr)
+
+    opt_expr  go to state 68
+    LHS       go to state 30
+    expr      go to state 69
+
+
+state 38
+
+   29 stmnt: SWITCH '(' . expr ')' @10 stmnt
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 70
+
+
+state 39
+
+   36 lbl_stmnt: CASE ADDOP . NUM ':' @12 stmnt
+
+    NUM  shift, and go to state 71
+
+
+state 40
+
+   34 lbl_stmnt: CASE NUM . ':' @11 stmnt
+
+    ':'  shift, and go to state 72
+
+
+state 41
+
+   38 lbl_stmnt: DEFAULT ':' . @13 stmnt
+
+    $default  reduce using rule 37 (@13)
+
+    @13  go to state 73
+
+
+state 42
+
+   30 stmnt: BREAK ';' .
+
+    $default  reduce using rule 30 (stmnt)
+
+
+state 43
+
+   31 stmnt: CONTI ';' .
+
+    $default  reduce using rule 31 (stmnt)
+
+
+state 44
+
+   45 LHS: ID .
+
+    $default  reduce using rule 45 (LHS)
+
+
+state 45
+
+   11 stmnt: READ LHS . ';'
+
+    ';'  shift, and go to state 74
+
+
+state 46
+
+   12 stmnt: WRITE expr . ';'
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ';'    shift, and go to state 75
+
+
+state 47
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+   57     | ADDOP expr .
+
+    $default  reduce using rule 57 (expr)
+
+
+state 48
+
+   58 expr: PPMM ID .
+
+    $default  reduce using rule 58 (expr)
+
+
+state 49
+
+   59 expr: ID PPMM .
+
+    $default  reduce using rule 59 (expr)
+
+
+state 50
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+   56     | '!' expr .
+
+    $default  reduce using rule 56 (expr)
+
+
+state 51
+
+    7 s_list: s_list . stmnt
+   13 stmnt: '{' s_list . '}'
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '}'      shift, and go to state 76
+    '('      shift, and go to state 24
+
+    stmnt      go to state 55
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 52
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+   55     | '(' expr . ')'
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ')'    shift, and go to state 77
+
+
+state 53
+
+    3 decl_list: decl_list decl ';' .
+
+    $default  reduce using rule 3 (decl_list)
+
+
+state 54
+
+    5 decl: decl ',' . ID
+
+    ID  shift, and go to state 78
+
+
+state 55
+
+    7 s_list: s_list stmnt .
+
+    $default  reduce using rule 7 (s_list)
+
+
+state 56
+
+   16 stmnt: if_part ELSE . @1 stmnt
+
+    $default  reduce using rule 15 (@1)
+
+    @1  go to state 79
+
+
+state 57
+
+   46 expr: LHS '=' . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 80
+
+
+state 58
+
+   52 expr: expr RELOP . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 81
+
+
+state 59
+
+   53 expr: expr ADDOP . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 82
+
+
+state 60
+
+   54 expr: expr MULOP . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 83
+
+
+state 61
+
+   49 expr: expr '?' . @15 expr ':' @16 expr
+
+    $default  reduce using rule 47 (@15)
+
+    @15  go to state 84
+
+
+state 62
+
+   50 expr: expr LOR . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 85
+
+
+state 63
+
+   51 expr: expr LAND . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 86
+
+
+state 64
+
+   10 stmnt: expr ';' .
+
+    $default  reduce using rule 10 (stmnt)
+
+
+state 65
+
+   40 if_part: IF '(' expr . ')' @14 stmnt
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ')'    shift, and go to state 87
+
+
+state 66
+
+   19 stmnt: WHILE @2 '(' . expr ')' @3 stmnt
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 88
+
+
+state 67
+
+   23 stmnt: DO @4 stmnt . @5 WHILE '(' expr ')' @6 ';'
+
+    $default  reduce using rule 21 (@5)
+
+    @5  go to state 89
+
+
+state 68
+
+   27 stmnt: FOR '(' opt_expr . ';' @7 tst_expr ';' @8 opt_expr ')' @9 stmnt
+
+    ';'  shift, and go to state 90
+
+
+state 69
+
+   42 opt_expr: expr .
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+
+    $default  reduce using rule 42 (opt_expr)
+
+
+state 70
+
+   29 stmnt: SWITCH '(' expr . ')' @10 stmnt
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ')'    shift, and go to state 91
+
+
+state 71
+
+   36 lbl_stmnt: CASE ADDOP NUM . ':' @12 stmnt
+
+    ':'  shift, and go to state 92
+
+
+state 72
+
+   34 lbl_stmnt: CASE NUM ':' . @11 stmnt
+
+    $default  reduce using rule 33 (@11)
+
+    @11  go to state 93
+
+
+state 73
+
+   38 lbl_stmnt: DEFAULT ':' @13 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 94
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 74
+
+   11 stmnt: READ LHS ';' .
+
+    $default  reduce using rule 11 (stmnt)
+
+
+state 75
+
+   12 stmnt: WRITE expr ';' .
+
+    $default  reduce using rule 12 (stmnt)
+
+
+state 76
+
+   13 stmnt: '{' s_list '}' .
+
+    $default  reduce using rule 13 (stmnt)
+
+
+state 77
+
+   55 expr: '(' expr ')' .
+
+    $default  reduce using rule 55 (expr)
+
+
+state 78
+
+    5 decl: decl ',' ID .
+
+    $default  reduce using rule 5 (decl)
+
+
+state 79
+
+   16 stmnt: if_part ELSE @1 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 95
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 80
+
+   46 expr: LHS '=' expr .
+   49     | expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+
+    $default  reduce using rule 46 (expr)
+
+
+state 81
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   52     | expr RELOP expr .
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+
+    $default  reduce using rule 52 (expr)
+
+
+state 82
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   53     | expr ADDOP expr .
+   54     | expr . MULOP expr
+
+    MULOP  shift, and go to state 60
+
+    $default  reduce using rule 53 (expr)
+
+
+state 83
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+   54     | expr MULOP expr .
+
+    $default  reduce using rule 54 (expr)
+
+
+state 84
+
+   49 expr: expr '?' @15 . expr ':' @16 expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 96
+
+
+state 85
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   50     | expr LOR expr .
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    LAND   shift, and go to state 63
+
+    $default  reduce using rule 50 (expr)
+
+
+state 86
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   51     | expr LAND expr .
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+
+    $default  reduce using rule 51 (expr)
+
+
+state 87
+
+   40 if_part: IF '(' expr ')' . @14 stmnt
+
+    $default  reduce using rule 39 (@14)
+
+    @14  go to state 97
+
+
+state 88
+
+   19 stmnt: WHILE @2 '(' expr . ')' @3 stmnt
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ')'    shift, and go to state 98
+
+
+state 89
+
+   23 stmnt: DO @4 stmnt @5 . WHILE '(' expr ')' @6 ';'
+
+    WHILE  shift, and go to state 99
+
+
+state 90
+
+   27 stmnt: FOR '(' opt_expr ';' . @7 tst_expr ';' @8 opt_expr ')' @9 stmnt
+
+    $default  reduce using rule 24 (@7)
+
+    @7  go to state 100
+
+
+state 91
+
+   29 stmnt: SWITCH '(' expr ')' . @10 stmnt
+
+    $default  reduce using rule 28 (@10)
+
+    @10  go to state 101
+
+
+state 92
+
+   36 lbl_stmnt: CASE ADDOP NUM ':' . @12 stmnt
+
+    $default  reduce using rule 35 (@12)
+
+    @12  go to state 102
+
+
+state 93
+
+   34 lbl_stmnt: CASE NUM ':' @11 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 103
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 94
+
+   38 lbl_stmnt: DEFAULT ':' @13 stmnt .
+
+    $default  reduce using rule 38 (lbl_stmnt)
+
+
+state 95
+
+   16 stmnt: if_part ELSE @1 stmnt .
+
+    $default  reduce using rule 16 (stmnt)
+
+
+state 96
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   49     | expr '?' @15 expr . ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    ':'    shift, and go to state 104
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+
+
+state 97
+
+   40 if_part: IF '(' expr ')' @14 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 105
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 98
+
+   19 stmnt: WHILE @2 '(' expr ')' . @3 stmnt
+
+    $default  reduce using rule 18 (@3)
+
+    @3  go to state 106
+
+
+state 99
+
+   23 stmnt: DO @4 stmnt @5 WHILE . '(' expr ')' @6 ';'
+
+    '('  shift, and go to state 107
+
+
+state 100
+
+   27 stmnt: FOR '(' opt_expr ';' @7 . tst_expr ';' @8 opt_expr ')' @9 stmnt
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    $default  reduce using rule 43 (tst_expr)
+
+    tst_expr  go to state 108
+    LHS       go to state 30
+    expr      go to state 109
+
+
+state 101
+
+   29 stmnt: SWITCH '(' expr ')' @10 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 110
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 102
+
+   36 lbl_stmnt: CASE ADDOP NUM ':' @12 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 111
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 103
+
+   34 lbl_stmnt: CASE NUM ':' @11 stmnt .
+
+    $default  reduce using rule 34 (lbl_stmnt)
+
+
+state 104
+
+   49 expr: expr '?' @15 expr ':' . @16 expr
+
+    $default  reduce using rule 48 (@16)
+
+    @16  go to state 112
+
+
+state 105
+
+   40 if_part: IF '(' expr ')' @14 stmnt .
+
+    $default  reduce using rule 40 (if_part)
+
+
+state 106
+
+   19 stmnt: WHILE @2 '(' expr ')' @3 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 113
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 107
+
+   23 stmnt: DO @4 stmnt @5 WHILE '(' . expr ')' @6 ';'
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 114
+
+
+state 108
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr . ';' @8 opt_expr ')' @9 stmnt
+
+    ';'  shift, and go to state 115
+
+
+state 109
+
+   44 tst_expr: expr .
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+
+    $default  reduce using rule 44 (tst_expr)
+
+
+state 110
+
+   29 stmnt: SWITCH '(' expr ')' @10 stmnt .
+
+    $default  reduce using rule 29 (stmnt)
+
+
+state 111
+
+   36 lbl_stmnt: CASE ADDOP NUM ':' @12 stmnt .
+
+    $default  reduce using rule 36 (lbl_stmnt)
+
+
+state 112
+
+   49 expr: expr '?' @15 expr ':' @16 . expr
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    LHS   go to state 30
+    expr  go to state 116
+
+
+state 113
+
+   19 stmnt: WHILE @2 '(' expr ')' @3 stmnt .
+
+    $default  reduce using rule 19 (stmnt)
+
+
+state 114
+
+   23 stmnt: DO @4 stmnt @5 WHILE '(' expr . ')' @6 ';'
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+    ')'    shift, and go to state 117
+
+
+state 115
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' . @8 opt_expr ')' @9 stmnt
+
+    $default  reduce using rule 25 (@8)
+
+    @8  go to state 118
+
+
+state 116
+
+   49 expr: expr . '?' @15 expr ':' @16 expr
+   49     | expr '?' @15 expr ':' @16 expr .
+   50     | expr . LOR expr
+   51     | expr . LAND expr
+   52     | expr . RELOP expr
+   53     | expr . ADDOP expr
+   54     | expr . MULOP expr
+
+    RELOP  shift, and go to state 58
+    ADDOP  shift, and go to state 59
+    MULOP  shift, and go to state 60
+    '?'    shift, and go to state 61
+    LOR    shift, and go to state 62
+    LAND   shift, and go to state 63
+
+    $default  reduce using rule 49 (expr)
+
+
+state 117
+
+   23 stmnt: DO @4 stmnt @5 WHILE '(' expr ')' . @6 ';'
+
+    $default  reduce using rule 22 (@6)
+
+    @6  go to state 119
+
+
+state 118
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' @8 . opt_expr ')' @9 stmnt
+
+    ADDOP  shift, and go to state 17
+    PPMM   shift, and go to state 18
+    NUM    shift, and go to state 19
+    ID     shift, and go to state 20
+    '!'    shift, and go to state 21
+    '('    shift, and go to state 24
+
+    $default  reduce using rule 41 (opt_expr)
+
+    opt_expr  go to state 120
+    LHS       go to state 30
+    expr      go to state 69
+
+
+state 119
+
+   23 stmnt: DO @4 stmnt @5 WHILE '(' expr ')' @6 . ';'
+
+    ';'  shift, and go to state 121
+
+
+state 120
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' @8 opt_expr . ')' @9 stmnt
+
+    ')'  shift, and go to state 122
+
+
+state 121
+
+   23 stmnt: DO @4 stmnt @5 WHILE '(' expr ')' @6 ';' .
+
+    $default  reduce using rule 23 (stmnt)
+
+
+state 122
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' @8 opt_expr ')' . @9 stmnt
+
+    $default  reduce using rule 26 (@9)
+
+    @9  go to state 123
+
+
+state 123
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' @8 opt_expr ')' @9 . stmnt
+
+    error    shift, and go to state 4
+    IF       shift, and go to state 6
+    WHILE    shift, and go to state 7
+    DO       shift, and go to state 8
+    FOR      shift, and go to state 9
+    SWITCH   shift, and go to state 10
+    CASE     shift, and go to state 11
+    DEFAULT  shift, and go to state 12
+    BREAK    shift, and go to state 13
+    CONTI    shift, and go to state 14
+    READ     shift, and go to state 15
+    WRITE    shift, and go to state 16
+    ADDOP    shift, and go to state 17
+    PPMM     shift, and go to state 18
+    NUM      shift, and go to state 19
+    ID       shift, and go to state 20
+    '!'      shift, and go to state 21
+    ';'      shift, and go to state 22
+    '{'      shift, and go to state 23
+    '('      shift, and go to state 24
+
+    stmnt      go to state 124
+    lbl_stmnt  go to state 28
+    if_part    go to state 29
+    LHS        go to state 30
+    expr       go to state 31
+
+
+state 124
+
+   27 stmnt: FOR '(' opt_expr ';' @7 tst_expr ';' @8 opt_expr ')' @9 stmnt .
+
+    $default  reduce using rule 27 (stmnt)

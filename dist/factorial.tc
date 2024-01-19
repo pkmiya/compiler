@@ -1,0 +1,12 @@
+int n;
+int x;
+
+read n;
+x = 1;
+
+while(n > 1){
+  x = x * n;
+  n--;
+}
+
+write x;

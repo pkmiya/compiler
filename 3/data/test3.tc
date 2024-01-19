@@ -1,0 +1,10 @@
+write((1+1)*2);
+write(2*2);
+write(-2/1);
+write(5%2);
+write(1.5+3.3);
+write(5/3);
+write(sin(pi/2));
+write(arcsin(sin(3.14/4)));
+write(sqrt(9));
+write(log(e));

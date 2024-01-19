@@ -1,0 +1,12 @@
+double a,b,c;
+
+a=4;
+b=log(3);
+c=a*b;
+
+if (c>a){
+    write(c);
+}
+else{
+    write(a);
+}

@@ -1,0 +1,12 @@
+int x;
+int y;
+
+read x;
+read y;
+
+while(x != y){
+  if(x < y) y = y - x;
+  else      x = x - y;
+}
+
+write x;
